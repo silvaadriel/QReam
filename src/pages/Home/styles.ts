@@ -1,10 +1,8 @@
 import styled from 'styled-components/native';
 
-interface OwnProps {
+interface BalanceProps {
   hideBalance: boolean;
 }
-
-type Props = OwnProps;
 
 export const User = styled.TouchableOpacity`
   height: 100%;
@@ -17,6 +15,7 @@ export const UserGreeting = styled.Text`
   color: #e5e7e8;
   font-size: 18px;
   margin-right: 15px;
+  font-family: 'Roboto-Light';
 `;
 
 export const BalanceContainer = styled.View`
@@ -30,6 +29,7 @@ export const BalanceLabel = styled.Text`
   margin-bottom: 10px;
   margin-left: 20px;
   align-self: flex-start;
+  font-family: 'Roboto-Light';
 `;
 
 export const BalanceAvailable = styled.View`
@@ -41,14 +41,16 @@ export const BalanceCurrency = styled.Text`
   color: #dadada;
   font-size: 24px;
   letter-spacing: -0.5px;
+  font-family: 'Roboto-Light';
 `;
 
-export const Balance = styled.Text<Props>`
+export const Balance = styled.Text<BalanceProps>`
   margin: 0 10px;
   color: #dadada;
-  opacity: ${({hideBalance}) => (hideBalance ? 0 : 1)};
+  opacity: ${({ hideBalance }) => (hideBalance ? 0 : 1)};
   font-size: 68px;
   letter-spacing: -0.5px;
+  font-family: 'Roboto-Medium';
 `;
 
 export const HideBalance = styled.View`

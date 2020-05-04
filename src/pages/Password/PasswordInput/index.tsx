@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {TextInput, TextInputProps} from 'react-native';
+import React, { useRef, useCallback } from 'react';
+import { TextInput, TextInputProps } from 'react-native';
 
 import {
   PasswordInputContainer,
@@ -9,38 +9,39 @@ import {
   Dot
 } from './styles';
 
-interface OwnProps {
+interface PasswordInputProps extends TextInputProps {
   password: string;
   passwordLength: number;
 }
 
-type Props = OwnProps & TextInputProps;
-
-const PasswordInput: React.FC<Props> = ({
+const PasswordInput: React.FC<PasswordInputProps> = ({
   password,
   passwordLength,
   onChangeText,
-  ...props
+  ...rest
 }) => {
   const textInputHidden = useRef<TextInput>(null);
 
-  const focusTextInputHidden = () => {
+  const focusTextInputHidden = useCallback(() => {
     textInputHidden.current?.blur();
     textInputHidden.current?.focus();
-  };
+  }, []);
 
-  const renderMask = (password: string) => {
-    const passwordCharacterBox = [];
-    for (let i = 1; i <= passwordLength; i++) {
-      passwordCharacterBox.push(
-        <PasswordCharacterBox key={i}>
-          {password.length >= i && <Dot />}
-        </PasswordCharacterBox>
-      );
-    }
+  const renderMask = useCallback(
+    (currentPassword: string) => {
+      const passwordCharacterBox = [];
+      for (let i = 1; i <= passwordLength; i++) {
+        passwordCharacterBox.push(
+          <PasswordCharacterBox key={i}>
+            {currentPassword.length >= i ? <Dot /> : null}
+          </PasswordCharacterBox>
+        );
+      }
 
-    return passwordCharacterBox;
-  };
+      return passwordCharacterBox;
+    },
+    [passwordLength]
+  );
 
   return (
     <PasswordInputContainer onTouchStart={focusTextInputHidden}>
@@ -52,7 +53,7 @@ const PasswordInput: React.FC<Props> = ({
         ref={textInputHidden}
         value={password}
         onChangeText={onChangeText}
-        {...props}
+        {...rest}
       />
       <PasswordMaskContainer>{renderMask(password)}</PasswordMaskContainer>
     </PasswordInputContainer>

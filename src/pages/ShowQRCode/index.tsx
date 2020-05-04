@@ -1,8 +1,6 @@
 import React from 'react';
-import {Image} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack';
-
-import {RootStackParamList} from '../../Router';
+import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -11,36 +9,35 @@ import IconButton from '../../components/IconButton';
 
 import QRCode from '../../assets/QRCode.png';
 
-import {Title, Text, Footer, QRCodeContainer} from './styles';
+import { Title, Text, Footer, QRCodeContainer } from './styles';
 
-type ShowQRCodeNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'ShowQRCode'
->;
+const ShowQRCode: React.FC = () => {
+  const navigation = useNavigation();
 
-type Props = {
-  navigation: ShowQRCodeNavigationProp;
+  return (
+    <ContainerFluid>
+      <Header style={{ alignItems: 'flex-end' }}>
+        <IconButton
+          onPress={() => navigation.navigate('Home')}
+          icon="close"
+          iconColor="#DADADA70"
+          iconSize={48}
+        />
+      </Header>
+
+      <Title>Meu código QR</Title>
+
+      <Text>Mostre este QR Code para realizar um pagamento</Text>
+
+      <QRCodeContainer>
+        <Image source={QRCode} />
+      </QRCodeContainer>
+
+      <Footer>
+        <ActionButton icon="share">Compartilhar</ActionButton>
+      </Footer>
+    </ContainerFluid>
+  );
 };
-
-const ShowQRCode: React.FC<Props> = ({navigation}) => (
-  <ContainerFluid>
-    <Header style={{alignItems: 'flex-end'}}>
-      <IconButton
-        onPress={() => navigation.navigate('Home')}
-        name="close"
-        color="#DADADA70"
-        size={48}
-      />
-    </Header>
-    <Title>Meu código QR</Title>
-    <Text>Mostre este QR Code para realizar um pagamento</Text>
-    <QRCodeContainer>
-      <Image source={QRCode} />
-    </QRCodeContainer>
-    <Footer>
-      <ActionButton label="Compartilhar" icon="share" />
-    </Footer>
-  </ContainerFluid>
-);
 
 export default ShowQRCode;

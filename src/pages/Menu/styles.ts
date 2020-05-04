@@ -1,9 +1,5 @@
 import styled from 'styled-components/native';
 
-export const BackButton = styled.TouchableOpacity`
-  height: 100%;
-`;
-
 export const User = styled.View`
   align-items: center;
   justify-content: center;
@@ -13,6 +9,7 @@ export const UserName = styled.Text`
   color: #e5e7e8;
   font-size: 23px;
   margin-top: 30px;
+  font-family: 'Roboto-Light';
 `;
 
 export const ButtonGroup = styled.View`
@@ -32,4 +29,5 @@ export const ButtonText = styled.Text`
   color: #bebebf;
   text-align: center;
   font-size: 20px;
+  font-family: 'Roboto-Regular';
 `;

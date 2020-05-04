@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {StackNavigationProp} from '@react-navigation/stack';
-
-import {RootStackParamList} from '../../Router';
+import { useNavigation } from '@react-navigation/native';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
-import TileButton from '../../components/TileButton';
+
+import TileButton from './TileButton';
 
 import payWithQRCodeIcon from '../../assets/payWithQRCodeIcon.png';
 import receiveWithQRCodeIcon from '../../assets/receiveWithQRCodeIcon.png';
@@ -23,14 +22,10 @@ import {
   UserGreeting
 } from './styles';
 
-type ShowQRCodeNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-
-type Props = {
-  navigation: ShowQRCodeNavigationProp;
-};
-
-const Home: React.FC<Props> = ({navigation}) => {
+const Home: React.FC = () => {
   const [hideBalance, setHideBalance] = useState(false);
+
+  const navigation = useNavigation();
 
   return (
     <ContainerFluid>
@@ -40,12 +35,17 @@ const Home: React.FC<Props> = ({navigation}) => {
           <Icon name="account-circle" color="#B8B8B9" size={52} />
         </User>
       </Header>
+
       <BalanceContainer>
         <BalanceLabel>Saldo disponível</BalanceLabel>
+
         <BalanceAvailable>
           <BalanceCurrency>R$</BalanceCurrency>
-          {hideBalance && <HideBalance />}
+
+          {hideBalance ? <HideBalance /> : null}
+
           <Balance hideBalance={hideBalance}>50,00</Balance>
+
           <Icon
             onPress={() => setHideBalance(!hideBalance)}
             name={hideBalance ? 'visibility' : 'visibility-off'}
@@ -54,25 +54,29 @@ const Home: React.FC<Props> = ({navigation}) => {
           />
         </BalanceAvailable>
       </BalanceContainer>
+
       <TileButtonContainer>
         <TileButton
+          icon={payWithQRCodeIcon}
           onPress={() =>
             navigation.navigate('InformValue', {
               transactionType: 'pay'
             })
           }
-          label="Pagar com Código QR"
-          icon={payWithQRCodeIcon}
-        />
+        >
+          Pagar com Código QR
+        </TileButton>
+
         <TileButton
-          label="Receber com Código QR"
           icon={receiveWithQRCodeIcon}
           onPress={() =>
             navigation.navigate('InformValue', {
               transactionType: 'receive'
             })
           }
-        />
+        >
+          Receber com Código QR
+        </TileButton>
       </TileButtonContainer>
     </ContainerFluid>
   );

@@ -1,22 +1,24 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {IconProps} from 'react-native-vector-icons/Icon';
-import {TouchableOpacityProps} from 'react-native';
+import { TouchableOpacityProps } from 'react-native';
 
-import {IconButtonContainer} from './styles';
+import { IconButtonContainer } from './styles';
 
-type IconButtonProps = IconProps & TouchableOpacityProps;
+interface IconButtonProps extends TouchableOpacityProps {
+  icon: string;
+  iconColor: string;
+  iconSize: number;
+}
 
 const IconButton: React.FC<IconButtonProps> = ({
-  name,
-  color,
-  size,
-  onPress,
+  icon,
+  iconColor,
+  iconSize,
   ...rest
 }) => {
   return (
-    <IconButtonContainer onPress={onPress} {...rest}>
-      <Icon name={name} color={color} size={size} />
+    <IconButtonContainer {...rest}>
+      <Icon name={icon} color={iconColor} size={iconSize} />
     </IconButtonContainer>
   );
 };

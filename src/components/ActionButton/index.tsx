@@ -1,20 +1,21 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { TouchableOpacityProps } from 'react-native';
 
-import {Button, ButtonText} from './styles';
-import {TouchableOpacityProps} from 'react-native';
+import { Button, ButtonText, Icon } from './styles';
 
-interface OwnProps {
-  label: string;
+interface ActionButtonProps extends TouchableOpacityProps {
+  children: string;
   icon?: string;
 }
 
-type Props = OwnProps & TouchableOpacityProps;
-
-const ActionButton: React.FC<Props> = ({label, icon, ...props}) => (
-  <Button {...props}>
-    <ButtonText iconMargin={icon}>{label}</ButtonText>
-    {icon && <Icon name={icon} color="#ffffff" size={26} />}
+const ActionButton: React.FC<ActionButtonProps> = ({
+  children,
+  icon,
+  ...rest
+}) => (
+  <Button {...rest}>
+    <ButtonText>{children}</ButtonText>
+    {icon ? <Icon name={icon} color="#ffffff" size={26} /> : null}
   </Button>
 );
 

@@ -1,8 +1,7 @@
-import React from 'react';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
+import React, { useState, useCallback } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-import {RootStackParamList} from '../../Router';
+import formatValue from '../../utils/formatValue';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -17,54 +16,61 @@ import {
   Title
 } from './styles';
 
-type ShowQRCodeNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'InformValue'
->;
-
-type ShowQRCodeNavigationRouteProp = RouteProp<
-  RootStackParamList,
-  'InformValue'
->;
-
-type Props = {
-  navigation: ShowQRCodeNavigationProp;
-  route: ShowQRCodeNavigationRouteProp;
-};
-
 interface TransactionType {
   title: string;
   nextPage: 'Password' | 'ScanQRCode';
 }
 
-const InformValue: React.FC<Props> = ({route, navigation}) => {
-  const {transactionType} = route.params;
+const InformValue: React.FC = () => {
+  const [value, setValue] = useState(formatValue(''));
+
+  const route = useRoute<any>();
+  const navigation = useNavigation();
+
+  const { transactionType } = route.params;
 
   const transaction: TransactionType = {
     title: transactionType === 'pay' ? 'pagamento' : 'recebimento',
     nextPage: transactionType === 'pay' ? 'Password' : 'ScanQRCode'
   };
 
+  const handleChangeText = useCallback((text: string) => {
+    setValue((currentValue) => {
+      const newValue = formatValue(text);
+      return newValue === 'NaN' ? currentValue : newValue;
+    });
+  }, []);
+
   return (
     <ContainerFluid>
       <Header>
         <IconButton
           onPress={() => navigation.goBack()}
-          name="keyboard-arrow-left"
-          color="#DADADA70"
-          size={48}
+          icon="keyboard-arrow-left"
+          iconColor="#DADADA70"
+          iconSize={48}
         />
       </Header>
+
       <Title>Valor do {transaction.title}</Title>
+
       <InputValueContainer>
         <InputValueCurrency>R$</InputValueCurrency>
-        <InputValue keyboardType="number-pad" autoFocus />
-      </InputValueContainer>
-      <Footer>
-        <ActionButton
-          label="Continuar"
-          onPress={() => navigation.navigate(transaction.nextPage)}
+
+        <InputValue
+          value={value}
+          onChangeText={handleChangeText}
+          keyboardType="numeric"
+          autoFocus
+          returnKeyType="send"
+          onSubmitEditing={() => navigation.navigate(transaction.nextPage)}
         />
+      </InputValueContainer>
+
+      <Footer>
+        <ActionButton onPress={() => navigation.navigate(transaction.nextPage)}>
+          Continuar
+        </ActionButton>
       </Footer>
     </ContainerFluid>
   );

@@ -21,4 +21,5 @@ export const TileButtonText = styled.Text`
   color: #bebebf;
   text-align: center;
   font-size: 20px;
+  font-family: 'Roboto-Regular';
 `;

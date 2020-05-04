@@ -1,51 +1,47 @@
-import React, {useState} from 'react';
-import {StackNavigationProp} from '@react-navigation/stack';
-
-import {RootStackParamList} from '../../Router';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
-import PasswordInput from '../../components/PasswordInput';
 import ActionButton from '../../components/ActionButton';
 import IconButton from '../../components/IconButton';
 
-import {Title, InputPasswordContainer, Footer} from './styles';
+import PasswordInput from './PasswordInput';
 
-type ShowQRCodeNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Password'
->;
+import { Title, InputPasswordContainer, Footer } from './styles';
 
-type Props = {
-  navigation: ShowQRCodeNavigationProp;
-};
-
-const Password: React.FC<Props> = ({navigation}) => {
+const Password: React.FC = () => {
   const [password, setPassword] = useState('');
+
+  const navigation = useNavigation();
 
   return (
     <ContainerFluid>
       <Header>
         <IconButton
           onPress={() => navigation.goBack()}
-          name="keyboard-arrow-left"
-          color="#DADADA70"
-          size={48}
+          icon="keyboard-arrow-left"
+          iconColor="#DADADA70"
+          iconSize={48}
         />
       </Header>
+
       <Title>Informe sua senha</Title>
+
       <InputPasswordContainer>
         <PasswordInput
           password={password}
           passwordLength={4}
           onChangeText={(text) => setPassword(text)}
+          returnKeyType="send"
+          onSubmitEditing={() => navigation.navigate('ShowQRCode')}
         />
       </InputPasswordContainer>
+
       <Footer>
-        <ActionButton
-          label="Continuar"
-          onPress={() => navigation.navigate('ShowQRCode')}
-        />
+        <ActionButton onPress={() => navigation.navigate('ShowQRCode')}>
+          Continuar
+        </ActionButton>
       </Footer>
     </ContainerFluid>
   );

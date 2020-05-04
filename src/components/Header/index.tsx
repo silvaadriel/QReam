@@ -1,9 +1,9 @@
 import React from 'react';
+import { ViewProps } from 'react-native';
 
-import {HeaderContainer} from './styles';
-import {ViewProps} from 'react-native';
+import { HeaderContainer } from './styles';
 
-const Header: React.FC<ViewProps> = ({children, ...rest}) => (
+const Header: React.FC<ViewProps> = ({ children, ...rest }) => (
   <HeaderContainer {...rest}>{children}</HeaderContainer>
 );
 

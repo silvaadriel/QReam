@@ -6,6 +6,7 @@ export const Title = styled.Text`
   font-size: 40px;
   text-align: left;
   letter-spacing: -0.5px;
+  font-family: 'Roboto-Medium';
 `;
 
 export const TransactionInformationContainer = styled.View`
@@ -26,12 +27,14 @@ export const TransactionInformationKey = styled.Text`
   color: #bebebf;
   font-size: 20px;
   letter-spacing: -0.5px;
+  font-family: 'Roboto-Light';
 `;
 
 export const TransactionInformationValue = styled.Text`
   color: #dadada;
   font-size: 30px;
   letter-spacing: -0.5px;
+  font-family: 'Roboto-Regular';
 `;
 
 export const Footer = styled.View`

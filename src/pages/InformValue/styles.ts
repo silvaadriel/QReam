@@ -1,39 +1,10 @@
 import styled from 'styled-components/native';
 
-export const User = styled.View`
-  align-items: center;
-  justify-content: center;
-`;
-
-export const UserName = styled.Text`
-  color: #e5e7e8;
-  font-size: 23px;
-  margin-top: 30px;
-`;
-
-export const ButtonGroup = styled.View`
-  margin: 60px 30px;
-`;
-
-export const Button = styled.TouchableOpacity`
-  height: 67px;
-  background: #36384d;
-  border-top-width: 2px;
-  border-top-color: #2699da;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const ButtonText = styled.Text`
-  color: #bebebf;
-  text-align: center;
-  font-size: 20px;
-`;
-
 export const Title = styled.Text`
   color: #dadada;
   font-size: 26px;
   text-align: center;
+  font-family: 'Roboto-Light';
 `;
 
 export const InputValueContainer = styled.View`
@@ -47,6 +18,7 @@ export const InputValueContainer = styled.View`
 export const InputValueCurrency = styled.Text`
   color: #dadada;
   font-size: 16px;
+  font-family: 'Roboto-Light';
 `;
 
 export const InputValue = styled.TextInput`
@@ -57,6 +29,7 @@ export const InputValue = styled.TextInput`
   letter-spacing: -0.5px;
   border-bottom-width: 2px;
   border-bottom-color: #2699da;
+  font-family: 'Roboto-Regular';
 `;
 
 export const Footer = styled.View`

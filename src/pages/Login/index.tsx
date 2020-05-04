@@ -1,48 +1,48 @@
-import React, {useState} from 'react';
+import React, { useRef } from 'react';
+import { TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {StackNavigationProp} from '@react-navigation/stack';
-
-import {RootStackParamList} from '../../Router';
+import { useNavigation } from '@react-navigation/native';
 
 import TextBox from '../../components/TextBox';
 import ActionButton from '../../components/ActionButton';
 import ContainerFluid from '../../components/ContainerFluid';
 
-import {LoginForm, Logo} from './styles';
+import { ContentContainer, LoginForm, Logo } from './styles';
 
-type ShowQRCodeNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Login'
->;
+const Login: React.FC = () => {
+  const credentialTextBoxRef = useRef<TextInput>(null);
 
-type Props = {
-  navigation: ShowQRCodeNavigationProp;
-};
-
-const Login: React.FC<Props> = ({navigation}) => {
-  const [hidePassword, setHidePassword] = useState(true);
+  const navigation = useNavigation();
 
   return (
     <ContainerFluid>
-      <Logo>
-        <Icon name="fingerprint" color="#DADADA50" size={123} />
-      </Logo>
-      <LoginForm>
-        <TextBox textInput={{placeholder: 'e-mail, CPF ou telefone'}} />
-        <TextBox
-          textInput={{placeholder: 'senha', secureTextEntry: hidePassword}}
-          icon={{
-            name: hidePassword ? 'visibility' : 'visibility-off',
-            color: '#DADADA50',
-            size: 24,
-            onPress: () => setHidePassword(!hidePassword)
-          }}
-        />
-        <ActionButton
-          onPress={() => navigation.navigate('Home')}
-          label="Continuar"
-        />
-      </LoginForm>
+      <ContentContainer>
+        <Logo>
+          <Icon name="fingerprint" color="#DADADA50" size={123} />
+        </Logo>
+
+        <LoginForm>
+          <TextBox
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="e-mail, CPF ou telefone"
+            returnKeyType="next"
+            onSubmitEditing={() => credentialTextBoxRef.current?.focus()}
+          />
+
+          <TextBox
+            ref={credentialTextBoxRef}
+            placeholder="senha"
+            secureTextEntry
+            returnKeyType="send"
+            onSubmitEditing={() => navigation.navigate('Home')}
+          />
+
+          <ActionButton onPress={() => navigation.navigate('Home')}>
+            Continuar
+          </ActionButton>
+        </LoginForm>
+      </ContentContainer>
     </ContainerFluid>
   );
 };

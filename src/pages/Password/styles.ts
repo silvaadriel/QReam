@@ -4,6 +4,7 @@ export const Title = styled.Text`
   color: #dadada;
   font-size: 26px;
   text-align: center;
+  font-family: 'Roboto-Light';
 `;
 
 export const InputPasswordContainer = styled.View`

@@ -1,56 +1,44 @@
 import React from 'react';
-import {StackNavigationProp} from '@react-navigation/stack';
-
-import {RootStackParamList} from '../../Router';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
+import QRCodeCamMask from './QRCodeCamMask';
 
-import {
-  Container,
-  QRCodeCamMask,
-  QRCodeCamMaskColumn,
-  QRCodeCamMaskColumnFrame,
-  QRCodeCamMaskFrame,
-  QRCodeCamMaskRow,
-  QRCodeCamMaskRowFrame,
-  Text
-} from './styles';
+import { Container, QRCodeScanner, Text } from './styles';
 
-type ShowQRCodeNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'ScanQRCode'
->;
+const ShowQRCode: React.FC = () => {
+  const navigation = useNavigation();
 
-type Props = {
-  navigation: ShowQRCodeNavigationProp;
+  return (
+    <>
+      <Container>
+        <Header>
+          <IconButton
+            onPress={() => navigation.goBack()}
+            icon="keyboard-arrow-left"
+            iconColor="#DADADA70"
+            iconSize={48}
+          />
+        </Header>
+
+        <Text>
+          Aponte o celular, escaneie o código QR e aguarde a confirmação de
+          leitura
+        </Text>
+
+        <QRCodeCamMask />
+      </Container>
+      <View>
+        <QRCodeScanner
+          fadeIn={false}
+          checkAndroid6Permissions={true}
+          onRead={() => navigation.navigate('TransactionConfirmation')}
+        />
+      </View>
+    </>
+  );
 };
-
-const ShowQRCode: React.FC<Props> = ({navigation}) => (
-  <Container>
-    <Header>
-      <IconButton
-        onPress={() => navigation.goBack()}
-        name="keyboard-arrow-left"
-        color="#DADADA70"
-        size={48}
-      />
-    </Header>
-    <Text>
-      Aponte o celular, escaneie o código QR e aguarde a confirmação de leitura
-    </Text>
-    <QRCodeCamMask>
-      <QRCodeCamMaskRow />
-      <QRCodeCamMaskRowFrame>
-        <QRCodeCamMaskColumn />
-        <QRCodeCamMaskColumnFrame>
-          <QRCodeCamMaskFrame />
-        </QRCodeCamMaskColumnFrame>
-        <QRCodeCamMaskColumn />
-      </QRCodeCamMaskRowFrame>
-      <QRCodeCamMaskRow />
-    </QRCodeCamMask>
-  </Container>
-);
 
 export default ShowQRCode;

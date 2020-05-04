@@ -1,8 +1,13 @@
 import styled from 'styled-components/native';
 
+export const ContentContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  padding-bottom: 50px;
+`;
+
 export const Logo = styled.View`
   align-items: center;
-  margin-top: 80px;
   margin-bottom: 50px;
 `;
 

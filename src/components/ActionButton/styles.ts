@@ -1,10 +1,5 @@
 import styled from 'styled-components/native';
-
-interface OwnProps {
-  iconMargin: string | undefined;
-}
-
-type Props = OwnProps;
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 export const Button = styled.TouchableOpacity`
   height: 50px;
@@ -16,8 +11,12 @@ export const Button = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const ButtonText = styled.Text<Props>`
+export const ButtonText = styled.Text`
   color: #ffffff;
   font-size: 20px;
-  margin-right: ${({iconMargin}) => (iconMargin ? 10 : 0)}px;
+  font-family: 'Roboto-Regular';
+`;
+
+export const Icon = styled(MaterialIcon)`
+  margin-left: 10px;
 `;
