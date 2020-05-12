@@ -9,6 +9,8 @@ export const Button = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
+  opacity: ${(prop) => (prop.disabled ? 0.3 : 1)};
 `;
 
 export const ButtonText = styled.Text`

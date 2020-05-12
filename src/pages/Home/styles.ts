@@ -11,6 +11,12 @@ export const User = styled.TouchableOpacity`
   align-items: center;
 `;
 
+export const AvatarImage = styled.Image`
+  height: 52px;
+  width: 52px;
+  border-radius: 52px;
+`;
+
 export const UserGreeting = styled.Text`
   color: #e5e7e8;
   font-size: 18px;

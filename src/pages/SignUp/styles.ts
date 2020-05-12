@@ -6,9 +6,12 @@ export const ContentContainer = styled.View`
   padding-bottom: 50px;
 `;
 
-export const Logo = styled.View`
-  align-items: center;
-  margin-bottom: 50px;
+export const Title = styled.Text`
+  text-align: center;
+  color: #dadada;
+  font-size: 26px;
+  font-family: 'Roboto-Light';
+  margin-bottom: 40px;
 `;
 
 export const LoginForm = styled.View`

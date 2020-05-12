@@ -5,6 +5,12 @@ export const User = styled.View`
   justify-content: center;
 `;
 
+export const AvatarImage = styled.Image`
+  height: 95px;
+  width: 95px;
+  border-radius: 95px;
+`;
+
 export const UserName = styled.Text`
   color: #e5e7e8;
   font-size: 23px;

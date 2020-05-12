@@ -1,14 +1,37 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+
+import { User as UserProps } from 'src/store/user/types';
+import { ApplicationState } from 'src/store';
+import * as AuthActions from '../../store/auth/actions';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
 
-import { Button, ButtonGroup, ButtonText, User, UserName } from './styles';
+import {
+  AvatarImage,
+  Button,
+  ButtonGroup,
+  ButtonText,
+  User,
+  UserName
+} from './styles';
 
-const Menu: React.FC = () => {
+interface StateProps {
+  user: UserProps;
+}
+
+interface DispatchProps {
+  logout(): void;
+}
+
+type MenuProps = StateProps & DispatchProps;
+
+const Menu: React.FC<MenuProps> = ({ user, logout }) => {
   const navigation = useNavigation();
 
   return (
@@ -23,8 +46,17 @@ const Menu: React.FC = () => {
       </Header>
 
       <User>
-        <Icon name="account-circle" color="#B8B8B9" size={95} />
-        <UserName>Thiago Lima</UserName>
+        {user.avatar ? (
+          <AvatarImage
+            source={{
+              uri: `https://qream-api.herokuapp.com/files/${user.avatar}`
+            }}
+          />
+        ) : (
+          <Icon name="account-circle" color="#B8B8B9" size={95} />
+        )}
+
+        <UserName>{user.name}</UserName>
       </User>
 
       <ButtonGroup>
@@ -40,7 +72,7 @@ const Menu: React.FC = () => {
           <ButtonText>Preferências</ButtonText>
         </Button>
 
-        <Button onPress={() => navigation.navigate('Login')}>
+        <Button onPress={() => logout()}>
           <ButtonText>SAIR</ButtonText>
         </Button>
       </ButtonGroup>
@@ -48,4 +80,11 @@ const Menu: React.FC = () => {
   );
 };
 
-export default Menu;
+const mapStateToProps = (state: ApplicationState) => ({
+  user: state.user.data
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(AuthActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

@@ -1,18 +1,41 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import { TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+
+import * as AuthActions from '../../store/auth/actions';
 
 import TextBox from '../../components/TextBox';
 import ActionButton from '../../components/ActionButton';
 import ContainerFluid from '../../components/ContainerFluid';
 
-import { ContentContainer, LoginForm, Logo } from './styles';
+import {
+  ContentContainer,
+  LoginForm,
+  Logo,
+  SignUpText,
+  SignUpButton
+} from './styles';
 
-const Login: React.FC = () => {
-  const credentialTextBoxRef = useRef<TextInput>(null);
+interface DispatchProps {
+  loginRequest(credential: string, password: string): void;
+}
+
+type LoginProps = DispatchProps;
+
+const Login: React.FC<LoginProps> = ({ loginRequest }) => {
+  const [credential, setCredential] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
+
+  const passwordTextBoxRef = useRef<TextInput>(null);
+
+  const handleLogin = useCallback(() => {
+    loginRequest(credential, password);
+  }, [credential, password, loginRequest]);
 
   return (
     <ContainerFluid>
@@ -23,28 +46,42 @@ const Login: React.FC = () => {
 
         <LoginForm>
           <TextBox
+            value={credential}
+            onChangeText={(text) => setCredential(text)}
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="e-mail, CPF ou telefone"
             returnKeyType="next"
-            onSubmitEditing={() => credentialTextBoxRef.current?.focus()}
+            onSubmitEditing={() => passwordTextBoxRef.current?.focus()}
           />
 
           <TextBox
-            ref={credentialTextBoxRef}
+            ref={passwordTextBoxRef}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
             placeholder="senha"
             secureTextEntry
             returnKeyType="send"
-            onSubmitEditing={() => navigation.navigate('Home')}
+            onSubmitEditing={handleLogin}
           />
 
-          <ActionButton onPress={() => navigation.navigate('Home')}>
+          <ActionButton
+            disabled={!(credential && password)}
+            onPress={handleLogin}
+          >
             Continuar
           </ActionButton>
+
+          <SignUpButton onPress={() => navigation.navigate('SignUp')}>
+            <SignUpText>Crie uma conta</SignUpText>
+          </SignUpButton>
         </LoginForm>
       </ContentContainer>
     </ContainerFluid>
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(AuthActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Login);

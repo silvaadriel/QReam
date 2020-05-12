@@ -1,33 +1,40 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { View, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
 
-import Login from '../pages/Login';
-import Home from '../pages/Home';
-import Menu from '../pages/Menu';
-import InformValue from '../pages/InformValue';
-import Password from '../pages/Password';
-import ShowQRCode from '../pages/ShowQRCode';
-import ScanQRCode from '../pages/ScanQRCode';
-import TransactionConfirmation from '../pages/TransactionConfirmation';
+import AuthRoutes from './auth.routes';
+import AppRoutes from './app.routes';
+import { ApplicationState } from '../store';
 
-const Stack = createStackNavigator();
+interface StateProps {
+  isLogged: boolean;
+  isLoading: boolean;
+}
 
-const Routes: React.FC = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Menu" component={Menu} />
-      <Stack.Screen name="InformValue" component={InformValue} />
-      <Stack.Screen name="Password" component={Password} />
-      <Stack.Screen name="ShowQRCode" component={ShowQRCode} />
-      <Stack.Screen name="ScanQRCode" component={ScanQRCode} />
-      <Stack.Screen
-        name="TransactionConfirmation"
-        component={TransactionConfirmation}
-      />
-    </Stack.Navigator>
-  );
+type RoutesProps = StateProps;
+
+const Routes: React.FC<RoutesProps> = ({ isLogged, isLoading }) => {
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#2B2A3F'
+        }}
+      >
+        <ActivityIndicator size="large" color="#2699DA" />
+      </View>
+    );
+  }
+
+  return isLogged ? <AppRoutes /> : <AuthRoutes />;
 };
 
-export default Routes;
+const mapStateToProps = (state: ApplicationState) => ({
+  isLogged: state.auth.logged,
+  isLoading: state.auth.loading
+});
+
+export default connect(mapStateToProps)(Routes);

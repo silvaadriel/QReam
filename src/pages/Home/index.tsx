@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+
+import { ApplicationState } from 'src/store';
+import { User as UserProps } from 'src/store/user/types';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -11,6 +15,7 @@ import payWithQRCodeIcon from '../../assets/payWithQRCodeIcon.png';
 import receiveWithQRCodeIcon from '../../assets/receiveWithQRCodeIcon.png';
 
 import {
+  AvatarImage,
   Balance,
   BalanceAvailable,
   BalanceContainer,
@@ -22,17 +27,33 @@ import {
   UserGreeting
 } from './styles';
 
-const Home: React.FC = () => {
+interface StateProps {
+  user: UserProps;
+}
+
+type HomeProps = StateProps;
+
+const Home: React.FC<HomeProps> = ({ user }) => {
   const [hideBalance, setHideBalance] = useState(false);
 
   const navigation = useNavigation();
+
+  const userFirstName = useMemo(() => user.name.split(' ')[0], [user.name]);
 
   return (
     <ContainerFluid>
       <Header>
         <User onPress={() => navigation.navigate('Menu')}>
-          <UserGreeting>Olá, Thiago</UserGreeting>
-          <Icon name="account-circle" color="#B8B8B9" size={52} />
+          <UserGreeting>Olá, {userFirstName}</UserGreeting>
+          {user.avatar ? (
+            <AvatarImage
+              source={{
+                uri: `https://qream-api.herokuapp.com/files/${user.avatar}`
+              }}
+            />
+          ) : (
+            <Icon name="account-circle" color="#B8B8B9" size={52} />
+          )}
         </User>
       </Header>
 
@@ -82,4 +103,8 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state: ApplicationState) => ({
+  user: state.user.data
+});
+
+export default connect(mapStateToProps)(Home);
