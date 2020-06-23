@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
-import { ApplicationState } from 'src/store';
-import { User as UserProps } from 'src/store/user/types';
+import { ApplicationState } from '../../store';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -27,14 +26,10 @@ import {
   UserGreeting
 } from './styles';
 
-interface StateProps {
-  user: UserProps;
-}
-
-type HomeProps = StateProps;
-
-const Home: React.FC<HomeProps> = ({ user }) => {
+const Home: React.FC = () => {
   const [hideBalance, setHideBalance] = useState(false);
+
+  const user = useSelector((state: ApplicationState) => state.user.data);
 
   const navigation = useNavigation();
 
@@ -52,8 +47,8 @@ const Home: React.FC<HomeProps> = ({ user }) => {
               }}
             />
           ) : (
-            <Icon name="account-circle" color="#B8B8B9" size={52} />
-          )}
+              <Icon name="account-circle" color="#B8B8B9" size={52} />
+            )}
         </User>
       </Header>
 
@@ -103,8 +98,4 @@ const Home: React.FC<HomeProps> = ({ user }) => {
   );
 };
 
-const mapStateToProps = (state: ApplicationState) => ({
-  user: state.user.data
-});
-
-export default connect(mapStateToProps)(Home);
+export default Home;

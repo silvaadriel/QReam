@@ -1,19 +1,17 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
 import { ApplicationState } from '../store';
 
-interface StateProps {
-  isLogged: boolean;
-  isLoading: boolean;
-}
+const Routes: React.FC = () => {
+  const isLoading = useSelector(
+    (state: ApplicationState) => state.auth.loading
+  );
+  const isLogged = useSelector((state: ApplicationState) => state.auth.logged);
 
-type RoutesProps = StateProps;
-
-const Routes: React.FC<RoutesProps> = ({ isLogged, isLoading }) => {
   if (isLoading) {
     return (
       <View
@@ -32,9 +30,4 @@ const Routes: React.FC<RoutesProps> = ({ isLogged, isLoading }) => {
   return isLogged ? <AppRoutes /> : <AuthRoutes />;
 };
 
-const mapStateToProps = (state: ApplicationState) => ({
-  isLogged: state.auth.logged,
-  isLoading: state.auth.loading
-});
-
-export default connect(mapStateToProps)(Routes);
+export default Routes;

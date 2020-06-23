@@ -14,7 +14,7 @@ export const Title = styled.Text`
   margin-bottom: 40px;
 `;
 
-export const LoginForm = styled.View`
+export const SignUpForm = styled.View`
   margin: 0 60px;
 `;
 

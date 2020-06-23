@@ -1,11 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
+import { useDispatch } from 'react-redux';
 import { TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
-import * as AuthActions from '../../store/auth/actions';
+import { loginRequest } from '../../store/auth/actions';
 
 import TextBox from '../../components/TextBox';
 import ActionButton from '../../components/ActionButton';
@@ -19,23 +18,18 @@ import {
   SignUpButton
 } from './styles';
 
-interface DispatchProps {
-  loginRequest(credential: string, password: string): void;
-}
-
-type LoginProps = DispatchProps;
-
-const Login: React.FC<LoginProps> = ({ loginRequest }) => {
+const Login: React.FC = () => {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
   const passwordTextBoxRef = useRef<TextInput>(null);
 
   const handleLogin = useCallback(() => {
-    loginRequest(credential, password);
-  }, [credential, password, loginRequest]);
+    dispatch(loginRequest(credential, password));
+  }, [credential, dispatch, password]);
 
   return (
     <ContainerFluid>
@@ -81,7 +75,4 @@ const Login: React.FC<LoginProps> = ({ loginRequest }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(AuthActions, dispatch);
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

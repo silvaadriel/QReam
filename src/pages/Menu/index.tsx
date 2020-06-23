@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
-import { User as UserProps } from 'src/store/user/types';
-import { ApplicationState } from 'src/store';
-import * as AuthActions from '../../store/auth/actions';
+import { ApplicationState } from '../../store';
+import { logout } from '../../store/auth/actions';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -21,17 +19,11 @@ import {
   UserName
 } from './styles';
 
-interface StateProps {
-  user: UserProps;
-}
+const Menu: React.FC = () => {
+  const user = useSelector((state: ApplicationState) => state.user.data);
 
-interface DispatchProps {
-  logout(): void;
-}
+  const dispatch = useDispatch();
 
-type MenuProps = StateProps & DispatchProps;
-
-const Menu: React.FC<MenuProps> = ({ user, logout }) => {
   const navigation = useNavigation();
 
   return (
@@ -53,8 +45,8 @@ const Menu: React.FC<MenuProps> = ({ user, logout }) => {
             }}
           />
         ) : (
-          <Icon name="account-circle" color="#B8B8B9" size={95} />
-        )}
+            <Icon name="account-circle" color="#B8B8B9" size={95} />
+          )}
 
         <UserName>{user.name}</UserName>
       </User>
@@ -72,7 +64,7 @@ const Menu: React.FC<MenuProps> = ({ user, logout }) => {
           <ButtonText>Preferências</ButtonText>
         </Button>
 
-        <Button onPress={() => logout()}>
+        <Button onPress={() => dispatch(logout())}>
           <ButtonText>SAIR</ButtonText>
         </Button>
       </ButtonGroup>
@@ -80,11 +72,4 @@ const Menu: React.FC<MenuProps> = ({ user, logout }) => {
   );
 };
 
-const mapStateToProps = (state: ApplicationState) => ({
-  user: state.user.data
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(AuthActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Menu);
+export default Menu;

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextInput, View, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import * as SignUpActions from '../../store/signUp/actions';
+import { ApplicationState } from '../../store';
+import { signUpRequest } from '../../store/signUp/actions';
 
 import TextBox from '../../components/TextBox';
 import ActionButton from '../../components/ActionButton';
@@ -12,27 +12,22 @@ import ContainerFluid from '../../components/ContainerFluid';
 
 import {
   ContentContainer,
-  LoginForm,
+  SignUpForm,
   Title,
   SignUpText,
   SignUpButton
 } from './styles';
-import { ApplicationState } from 'src/store';
 
-interface StateProps {
-  isLoading: boolean;
-}
-
-interface DispatchProps {
-  signUpRequest(name: string, credential: string, password: string): void;
-}
-
-type LoginProps = StateProps & DispatchProps;
-
-const Login: React.FC<LoginProps> = ({ isLoading, signUpRequest }) => {
+const SignUp: React.FC = () => {
   const [name, setName] = useState('');
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
+
+  const isLoading = useSelector(
+    (state: ApplicationState) => state.signUp.loading
+  );
+
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
@@ -40,8 +35,8 @@ const Login: React.FC<LoginProps> = ({ isLoading, signUpRequest }) => {
   const passwordTextBoxRef = useRef<TextInput>(null);
 
   const handleSignUp = useCallback(() => {
-    signUpRequest(name, credential, password);
-  }, [name, credential, password, signUpRequest]);
+    dispatch(signUpRequest(name, credential, password));
+  }, [dispatch, name, credential, password]);
 
   if (isLoading) {
     return (
@@ -63,7 +58,7 @@ const Login: React.FC<LoginProps> = ({ isLoading, signUpRequest }) => {
       <ContentContainer>
         <Title>Crie sua conta!</Title>
 
-        <LoginForm>
+        <SignUpForm>
           <TextBox
             value={name}
             onChangeText={(text) => setName(text)}
@@ -104,17 +99,10 @@ const Login: React.FC<LoginProps> = ({ isLoading, signUpRequest }) => {
           <SignUpButton onPress={() => navigation.goBack()}>
             <SignUpText>Voltar para login</SignUpText>
           </SignUpButton>
-        </LoginForm>
+        </SignUpForm>
       </ContentContainer>
     </ContainerFluid>
   );
 };
 
-const mapStateToProps = (state: ApplicationState) => ({
-  isLoading: state.signUp.loading
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(SignUpActions, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default SignUp;
