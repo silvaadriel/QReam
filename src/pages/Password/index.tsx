@@ -32,7 +32,7 @@ const Password: React.FC = () => {
         <PasswordInput
           password={password}
           passwordLength={4}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={text => setPassword(text)}
           returnKeyType="send"
           onSubmitEditing={() => navigation.navigate('ShowQRCode')}
         />

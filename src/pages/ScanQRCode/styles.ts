@@ -21,6 +21,6 @@ export const Text = styled.Text`
 
 export const QRCodeScanner = styled(QRCodeCamScanner).attrs({
   cameraStyle: {
-    height: Dimensions.get('window').height
-  }
+    height: Dimensions.get('window').height,
+  },
 })``;

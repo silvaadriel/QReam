@@ -23,7 +23,7 @@ import {
   HideBalance,
   TileButtonContainer,
   User,
-  UserGreeting
+  UserGreeting,
 } from './styles';
 
 const Home: React.FC = () => {
@@ -43,12 +43,12 @@ const Home: React.FC = () => {
           {user.avatar ? (
             <AvatarImage
               source={{
-                uri: `https://qream-api.herokuapp.com/files/${user.avatar}`
+                uri: `https://qream-api.herokuapp.com/files/${user.avatar}`,
               }}
             />
           ) : (
-              <Icon name="account-circle" color="#B8B8B9" size={52} />
-            )}
+            <Icon name="account-circle" color="#B8B8B9" size={52} />
+          )}
         </User>
       </Header>
 
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
           icon={payWithQRCodeIcon}
           onPress={() =>
             navigation.navigate('InformValue', {
-              transactionType: 'pay'
+              transactionType: 'pay',
             })
           }
         >
@@ -87,7 +87,7 @@ const Home: React.FC = () => {
           icon={receiveWithQRCodeIcon}
           onPress={() =>
             navigation.navigate('InformValue', {
-              transactionType: 'receive'
+              transactionType: 'receive',
             })
           }
         >

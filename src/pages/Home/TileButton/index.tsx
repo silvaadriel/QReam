@@ -2,13 +2,13 @@ import React from 'react';
 import {
   Image,
   ImageSourcePropType,
-  TouchableOpacityProps
+  TouchableOpacityProps,
 } from 'react-native';
 
 import {
   TouchableOpacity,
   TileButtonText,
-  TileButtonImageArea
+  TileButtonImageArea,
 } from './styles';
 
 interface TileButtonProps extends TouchableOpacityProps {

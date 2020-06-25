@@ -10,7 +10,7 @@ interface TextBoxProps extends TextInputProps {
 
 const TextBox: React.RefForwardingComponent<RNTextInput, TextBoxProps> = (
   { secureTextEntry, ...rest },
-  ref
+  ref,
 ) => {
   const [isTextVisible, setIsTextVisible] = useState(secureTextEntry);
   const [isFocused, setIsFocused] = useState(false);
@@ -29,7 +29,7 @@ const TextBox: React.RefForwardingComponent<RNTextInput, TextBoxProps> = (
         secureTextEntry={isTextVisible}
         placeholderTextColor="#DADADA50"
         onFocus={() => setIsFocused(true)}
-        onEndEditing={(event) => {
+        onEndEditing={event => {
           setIsFocused(false);
           setIsFilled(!!event.nativeEvent.text);
         }}

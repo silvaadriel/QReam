@@ -3,7 +3,7 @@ import { UserState, User, UserTypes } from './types';
 import { AuthTypes } from '../auth/types';
 
 const INITIAL_STATE: UserState = {
-  data: {} as User
+  data: {} as User,
 };
 
 const reducer: Reducer<UserState> = (state = INITIAL_STATE, action) => {

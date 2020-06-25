@@ -5,7 +5,7 @@ const INITIAL_STATE: AuthState = {
   token: '',
   logged: false,
   loading: false,
-  error: false
+  error: false,
 };
 
 const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
@@ -18,7 +18,7 @@ const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
         loading: false,
         logged: true,
         error: false,
-        token: action.payload.token
+        token: action.payload.token,
       };
     case AuthTypes.LOGIN_FAILURE:
       return {
@@ -26,7 +26,7 @@ const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
         loading: false,
         error: true,
         logged: false,
-        token: ''
+        token: '',
       };
     case AuthTypes.LOGOUT:
       return INITIAL_STATE;

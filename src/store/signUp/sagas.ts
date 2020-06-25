@@ -7,14 +7,14 @@ import api from '../../services/api';
 import { signUpSuccess, signUpFailure } from './actions';
 import { SignUpTypes } from './types';
 
-export function* signUp({ payload }: any) {
+export function* signUp({ payload }: any): any {
   try {
     const { name, credential, password } = payload;
 
     yield call(api.post, 'users', {
       name,
       credential,
-      password
+      password,
     });
 
     Alert.alert('Cadastro realizado', 'Faça seu login');

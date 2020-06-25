@@ -15,7 +15,7 @@ import {
   SignUpForm,
   Title,
   SignUpText,
-  SignUpButton
+  SignUpButton,
 } from './styles';
 
 const SignUp: React.FC = () => {
@@ -24,7 +24,7 @@ const SignUp: React.FC = () => {
   const [password, setPassword] = useState('');
 
   const isLoading = useSelector(
-    (state: ApplicationState) => state.signUp.loading
+    (state: ApplicationState) => state.signUp.loading,
   );
 
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const SignUp: React.FC = () => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#2B2A3F'
+          backgroundColor: '#2B2A3F',
         }}
       >
         <ActivityIndicator size="large" color="#2699DA" />
@@ -61,7 +61,7 @@ const SignUp: React.FC = () => {
         <SignUpForm>
           <TextBox
             value={name}
-            onChangeText={(text) => setName(text)}
+            onChangeText={text => setName(text)}
             autoCorrect={false}
             placeholder="nome completo"
             returnKeyType="next"
@@ -71,7 +71,7 @@ const SignUp: React.FC = () => {
           <TextBox
             ref={credentialTextBoxRef}
             value={credential}
-            onChangeText={(text) => setCredential(text)}
+            onChangeText={text => setCredential(text)}
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="e-mail, CPF ou telefone"
@@ -82,7 +82,7 @@ const SignUp: React.FC = () => {
           <TextBox
             ref={passwordTextBoxRef}
             value={password}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={text => setPassword(text)}
             placeholder="senha"
             secureTextEntry
             returnKeyType="send"

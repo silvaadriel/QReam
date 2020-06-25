@@ -13,7 +13,7 @@ import {
   InputValue,
   InputValueContainer,
   InputValueCurrency,
-  Title
+  Title,
 } from './styles';
 
 interface TransactionType {
@@ -31,11 +31,11 @@ const InformValue: React.FC = () => {
 
   const transaction: TransactionType = {
     title: transactionType === 'pay' ? 'pagamento' : 'recebimento',
-    nextPage: transactionType === 'pay' ? 'Password' : 'ScanQRCode'
+    nextPage: transactionType === 'pay' ? 'Password' : 'ScanQRCode',
   };
 
   const handleChangeText = useCallback((text: string) => {
-    setValue((currentValue) => {
+    setValue(currentValue => {
       const newValue = formatValue(text);
       return newValue === 'NaN' ? currentValue : newValue;
     });

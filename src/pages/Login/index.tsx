@@ -15,7 +15,7 @@ import {
   LoginForm,
   Logo,
   SignUpText,
-  SignUpButton
+  SignUpButton,
 } from './styles';
 
 const Login: React.FC = () => {
@@ -41,7 +41,7 @@ const Login: React.FC = () => {
         <LoginForm>
           <TextBox
             value={credential}
-            onChangeText={(text) => setCredential(text)}
+            onChangeText={text => setCredential(text)}
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="e-mail, CPF ou telefone"
@@ -52,7 +52,7 @@ const Login: React.FC = () => {
           <TextBox
             ref={passwordTextBoxRef}
             value={password}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={text => setPassword(text)}
             placeholder="senha"
             secureTextEntry
             returnKeyType="send"

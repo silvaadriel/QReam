@@ -8,7 +8,7 @@ import { ApplicationState } from '../store';
 
 const Routes: React.FC = () => {
   const isLoading = useSelector(
-    (state: ApplicationState) => state.auth.loading
+    (state: ApplicationState) => state.auth.loading,
   );
   const isLogged = useSelector((state: ApplicationState) => state.auth.logged);
 
@@ -19,7 +19,7 @@ const Routes: React.FC = () => {
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#2B2A3F'
+          backgroundColor: '#2B2A3F',
         }}
       >
         <ActivityIndicator size="large" color="#2699DA" />

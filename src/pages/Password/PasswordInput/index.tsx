@@ -6,7 +6,7 @@ import {
   TextInputHidden,
   PasswordCharacterBox,
   PasswordMaskContainer,
-  Dot
+  Dot,
 } from './styles';
 
 interface PasswordInputProps extends TextInputProps {
@@ -30,17 +30,17 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   const renderMask = useCallback(
     (currentPassword: string) => {
       const passwordCharacterBox = [];
-      for (let i = 1; i <= passwordLength; i++) {
+      for (let i = 1; i <= passwordLength; i + 1) {
         passwordCharacterBox.push(
           <PasswordCharacterBox key={i}>
             {currentPassword.length >= i ? <Dot /> : null}
-          </PasswordCharacterBox>
+          </PasswordCharacterBox>,
         );
       }
 
       return passwordCharacterBox;
     },
-    [passwordLength]
+    [passwordLength],
   );
 
   return (

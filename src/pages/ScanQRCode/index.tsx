@@ -33,7 +33,7 @@ const ShowQRCode: React.FC = () => {
       <View>
         <QRCodeScanner
           fadeIn={false}
-          checkAndroid6Permissions={true}
+          checkAndroid6Permissions
           onRead={() => navigation.navigate('TransactionConfirmation')}
         />
       </View>

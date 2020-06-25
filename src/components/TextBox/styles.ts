@@ -13,7 +13,7 @@ export const TextInputBox = styled.View<TextInputBoxProps>`
   border-bottom-width: 2px;
   border-bottom-color: #dadada50;
 
-  ${(props) =>
+  ${props =>
     (props.isFocused || props.isFilled) &&
     css`
       border-bottom-color: #2699da;

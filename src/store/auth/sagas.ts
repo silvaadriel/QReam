@@ -5,22 +5,22 @@ import api from '../../services/api';
 import { loginSuccess, loginFailure } from './actions';
 import { AuthTypes } from './types';
 
-export function* login({ payload }: any) {
+export function* login({ payload }: any): any {
   try {
     const { credential, password } = payload;
 
     const {
-      data: { token, user }
+      data: { token, user },
     } = yield call(api.post, 'sessions', {
       credential,
-      password
+      password,
     });
 
     yield put(loginSuccess(token, user));
   } catch {
     Alert.alert(
       'Falha na autenticação',
-      'Houve um erro no login, verifique sua credencial/senha'
+      'Houve um erro no login, verifique sua credencial/senha',
     );
     yield put(loginFailure());
   }

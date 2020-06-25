@@ -7,5 +7,5 @@ import user from './user';
 export default combineReducers({
   auth,
   signUp,
-  user
+  user,
 });

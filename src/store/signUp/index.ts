@@ -4,7 +4,7 @@ import { SignUpState, SignUpTypes } from './types';
 const INITIAL_STATE: SignUpState = {
   signedUp: false,
   loading: false,
-  error: false
+  error: false,
 };
 
 const reducer: Reducer<SignUpState> = (state = INITIAL_STATE, action) => {
@@ -16,14 +16,14 @@ const reducer: Reducer<SignUpState> = (state = INITIAL_STATE, action) => {
         ...state,
         loading: false,
         signedUp: true,
-        error: false
+        error: false,
       };
     case SignUpTypes.SIGN_UP_FAILURE:
       return {
         ...state,
         loading: false,
         error: true,
-        signedUp: false
+        signedUp: false,
       };
     default:
       return state;

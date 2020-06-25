@@ -16,7 +16,7 @@ import {
   ButtonGroup,
   ButtonText,
   User,
-  UserName
+  UserName,
 } from './styles';
 
 const Menu: React.FC = () => {
@@ -41,12 +41,12 @@ const Menu: React.FC = () => {
         {user.avatar ? (
           <AvatarImage
             source={{
-              uri: `https://qream-api.herokuapp.com/files/${user.avatar}`
+              uri: `https://qream-api.herokuapp.com/files/${user.avatar}`,
             }}
           />
         ) : (
-            <Icon name="account-circle" color="#B8B8B9" size={95} />
-          )}
+          <Icon name="account-circle" color="#B8B8B9" size={95} />
+        )}
 
         <UserName>{user.name}</UserName>
       </User>

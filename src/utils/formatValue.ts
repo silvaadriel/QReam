@@ -7,7 +7,7 @@ const formatValue = (value: string): string => {
 
   return Intl.NumberFormat('pt-BR', {
     minimumIntegerDigits: 1,
-    minimumFractionDigits: 2
+    minimumFractionDigits: 2,
   }).format(Number(cleanValue));
 };
 

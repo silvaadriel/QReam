@@ -10,7 +10,7 @@ export const Button = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 
-  opacity: ${(prop) => (prop.disabled ? 0.3 : 1)};
+  opacity: ${prop => (prop.disabled ? 0.3 : 1)};
 `;
 
 export const ButtonText = styled.Text`

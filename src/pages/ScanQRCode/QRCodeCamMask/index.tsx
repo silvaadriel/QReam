@@ -6,7 +6,7 @@ import {
   QRCodeCamMaskColumnFrame,
   QRCodeCamMaskFrame,
   QRCodeCamMaskRow,
-  QRCodeCamMaskRowFrame
+  QRCodeCamMaskRowFrame,
 } from './styles';
 
 const QRCodeCamMask: React.FC = () => (

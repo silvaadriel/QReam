@@ -10,7 +10,7 @@ import {
   TransactionInformation,
   TransactionInformationContainer,
   TransactionInformationKey,
-  TransactionInformationValue
+  TransactionInformationValue,
 } from './styles';
 
 const TransactionConfirmation: React.FC = () => {
