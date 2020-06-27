@@ -30,7 +30,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   const renderMask = useCallback(
     (currentPassword: string) => {
       const passwordCharacterBox = [];
-      for (let i = 1; i <= passwordLength; i + 1) {
+      for (let i = 1; i <= passwordLength; i += 1) {
         passwordCharacterBox.push(
           <PasswordCharacterBox key={i}>
             {currentPassword.length >= i ? <Dot /> : null}

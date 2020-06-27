@@ -2,7 +2,9 @@ import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 
 import api from '../../services/api';
-import { loginSuccess, loginFailure } from './actions';
+import { navigate, popToTop } from '../../rootNavigation';
+
+import { loginSuccess, loginFailure, logout as onLogout } from './actions';
 import { AuthTypes } from './types';
 
 export function* login({ payload }: any): any {
@@ -17,6 +19,7 @@ export function* login({ payload }: any): any {
     });
 
     yield put(loginSuccess(token, user));
+    navigate('App');
   } catch {
     Alert.alert(
       'Falha na autenticação',
@@ -26,4 +29,13 @@ export function* login({ payload }: any): any {
   }
 }
 
-export default all([takeLatest(AuthTypes.LOGIN_REQUEST, login)]);
+export function* logout(): any {
+  yield put(onLogout());
+
+  popToTop('Auth');
+}
+
+export default all([
+  takeLatest(AuthTypes.LOGIN_REQUEST, login),
+  takeLatest(AuthTypes.LOGOUT_REQUEST, logout),
+]);

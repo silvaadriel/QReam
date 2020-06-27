@@ -33,7 +33,9 @@ const Home: React.FC = () => {
 
   const navigation = useNavigation();
 
-  const userFirstName = useMemo(() => user.name.split(' ')[0], [user.name]);
+  const userFirstName = useMemo(() => user?.name?.split(' ')[0], [
+    user?.name?.split,
+  ]);
 
   return (
     <ContainerFluid>

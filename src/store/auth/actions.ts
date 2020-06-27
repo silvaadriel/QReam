@@ -11,4 +11,6 @@ export const loginSuccess = (token: string, user: User): any =>
 
 export const loginFailure = (): any => action(AuthTypes.LOGIN_FAILURE);
 
+export const logoutRequest = (): any => action(AuthTypes.LOGOUT_REQUEST);
+
 export const logout = (): any => action(AuthTypes.LOGOUT);

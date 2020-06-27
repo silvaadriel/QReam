@@ -1,9 +1,10 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
+import { ApplicationState } from '../../store';
 import { loginRequest } from '../../store/auth/actions';
 
 import TextBox from '../../components/TextBox';
@@ -21,6 +22,7 @@ import {
 const Login: React.FC = () => {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
+  const loading = useSelector((state: ApplicationState) => state.auth.loading);
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
@@ -30,6 +32,11 @@ const Login: React.FC = () => {
   const handleLogin = useCallback(() => {
     dispatch(loginRequest(credential, password));
   }, [credential, dispatch, password]);
+
+  const isActionButtonDisabled = useMemo(
+    () => !(credential && password) || loading,
+    [credential, password, loading],
+  );
 
   return (
     <ContainerFluid>
@@ -60,7 +67,8 @@ const Login: React.FC = () => {
           />
 
           <ActionButton
-            disabled={!(credential && password)}
+            disabled={isActionButtonDisabled}
+            loading={loading}
             onPress={handleLogin}
           >
             Continuar

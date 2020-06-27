@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 
 import { ApplicationState } from '../../store';
-import { logout } from '../../store/auth/actions';
+import { logoutRequest } from '../../store/auth/actions';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -64,7 +64,7 @@ const Menu: React.FC = () => {
           <ButtonText>Preferências</ButtonText>
         </Button>
 
-        <Button onPress={() => dispatch(logout())}>
+        <Button onPress={() => dispatch(logoutRequest())}>
           <ButtonText>SAIR</ButtonText>
         </Button>
       </ButtonGroup>

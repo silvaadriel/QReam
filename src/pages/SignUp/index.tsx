@@ -1,6 +1,6 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextInput, View, ActivityIndicator } from 'react-native';
+import { TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ApplicationState } from '../../store';
@@ -38,20 +38,10 @@ const SignUp: React.FC = () => {
     dispatch(signUpRequest(name, credential, password));
   }, [dispatch, name, credential, password]);
 
-  if (isLoading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#2B2A3F',
-        }}
-      >
-        <ActivityIndicator size="large" color="#2699DA" />
-      </View>
-    );
-  }
+  const isActionButtonDisabled = useMemo(
+    () => !(name && credential && password) || isLoading,
+    [name, credential, password, isLoading],
+  );
 
   return (
     <ContainerFluid>
@@ -90,7 +80,8 @@ const SignUp: React.FC = () => {
           />
 
           <ActionButton
-            disabled={!(name && credential && password)}
+            disabled={isActionButtonDisabled}
+            loading={isLoading}
             onPress={handleSignUp}
           >
             Continuar
