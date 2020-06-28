@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Animated } from 'react-native';
 
 export const ContentContainer = styled.View`
   flex: 1;
@@ -6,12 +7,16 @@ export const ContentContainer = styled.View`
   padding-bottom: 50px;
 `;
 
-export const Logo = styled.View`
+export const LogoContainer = styled.View`
+  flex: 1;
   align-items: center;
-  margin-bottom: 50px;
+  justify-content: center;
 `;
 
-export const LoginForm = styled.View`
+export const Logo = styled(Animated.Image)``;
+
+export const LoginForm = styled(Animated.View)`
+  flex: 2;
   margin: 0 60px;
 `;
 
