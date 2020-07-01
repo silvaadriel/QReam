@@ -12,7 +12,7 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const Text = styled.Text`
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnPrimary};
   font-size: 20px;
   text-align: center;
   margin: 0 28px;

@@ -4,9 +4,9 @@ export const TouchableOpacity = styled.TouchableOpacity`
   width: 160px;
   height: 180px;
   margin: 0 6px;
-  background: #36384d;
+  background: ${props => props.theme.colors.secundary};
   border-top-width: 2px;
-  border-top-color: #2699da;
+  border-top-color: ${props => props.theme.colors.primary};
   align-items: center;
 `;
 
@@ -18,7 +18,7 @@ export const TileButtonImageArea = styled.View`
 
 export const TileButtonText = styled.Text`
   flex: 1;
-  color: #bebebf;
+  color: ${props => props.theme.colors.textOnSecundary};
   text-align: center;
   font-size: 20px;
   font-family: 'Roboto-Regular';

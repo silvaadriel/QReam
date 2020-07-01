@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from 'styled-components';
+import { transparentize } from 'polished';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -15,13 +17,15 @@ const Password: React.FC = () => {
 
   const navigation = useNavigation();
 
+  const theme = useContext(ThemeContext);
+
   return (
     <ContainerFluid>
       <Header>
         <IconButton
           onPress={() => navigation.goBack()}
           icon="keyboard-arrow-left"
-          iconColor="#DADADA70"
+          iconColor={transparentize(0.5, theme.colors.textOnSecundary)}
           iconSize={48}
         />
       </Header>

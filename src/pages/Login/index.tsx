@@ -55,11 +55,13 @@ const Login: React.FC = () => {
       Animated.spring(offset.y, {
         toValue: 0,
         speed: 2,
+        delay: 400,
         useNativeDriver: true,
       }),
       Animated.timing(opacity, {
         toValue: 1,
         duration: 200,
+        delay: 400,
         useNativeDriver: true,
       }),
     ]).start();

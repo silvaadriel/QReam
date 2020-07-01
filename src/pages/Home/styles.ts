@@ -18,7 +18,7 @@ export const AvatarImage = styled.Image`
 `;
 
 export const UserGreeting = styled.Text`
-  color: #e5e7e8;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 18px;
   margin-right: 15px;
   font-family: 'Roboto-Light';
@@ -30,7 +30,7 @@ export const BalanceContainer = styled.View`
 `;
 
 export const BalanceLabel = styled.Text`
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 18px;
   margin-bottom: 10px;
   margin-left: 20px;
@@ -44,7 +44,7 @@ export const BalanceAvailable = styled.View`
 `;
 
 export const BalanceCurrency = styled.Text`
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 24px;
   letter-spacing: -0.5px;
   font-family: 'Roboto-Light';
@@ -52,7 +52,7 @@ export const BalanceCurrency = styled.Text`
 
 export const Balance = styled.Text<BalanceProps>`
   margin: 0 10px;
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnSecundary};
   opacity: ${({ hideBalance }) => (hideBalance ? 0 : 1)};
   font-size: 68px;
   letter-spacing: -0.5px;
@@ -65,7 +65,7 @@ export const HideBalance = styled.View`
   right: 0;
   margin: 0 40px;
   border-top-width: 2px;
-  border-top-color: #dadada;
+  border-top-color: ${props => props.theme.colors.textOnSecundary};
   z-index: 5;
 `;
 

@@ -27,7 +27,7 @@ export const SignUpButton = styled.TouchableOpacity`
 `;
 
 export const SignUpText = styled.Text`
-  color: #dfdfdf;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 16px;
   font-family: 'Roboto-Light';
 `;

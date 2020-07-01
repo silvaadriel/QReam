@@ -1,5 +1,7 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { ThemeContext } from 'styled-components';
+import { transparentize } from 'polished';
 
 import formatValue from '../../utils/formatValue';
 
@@ -27,6 +29,8 @@ const InformValue: React.FC = () => {
   const route = useRoute<any>();
   const navigation = useNavigation();
 
+  const theme = useContext(ThemeContext);
+
   const { transactionType } = route.params;
 
   const transaction: TransactionType = {
@@ -47,7 +51,7 @@ const InformValue: React.FC = () => {
         <IconButton
           onPress={() => navigation.goBack()}
           icon="keyboard-arrow-left"
-          iconColor="#DADADA70"
+          iconColor={transparentize(0.5, theme.colors.textOnSecundary)}
           iconSize={48}
         />
       </Header>

@@ -14,7 +14,6 @@ export const TextInputHidden = styled.TextInput`
   opacity: 0;
   right: 0;
   left: 0;
-  background: purple;
   z-index: 5;
 `;
 
@@ -29,12 +28,12 @@ export const PasswordCharacterBox = styled.View`
   margin: 0 10px;
   padding-bottom: 12px;
   border-bottom-width: 2px;
-  border-bottom-color: #2699da;
+  border-bottom-color: ${props => props.theme.colors.primary};
 `;
 
 export const Dot = styled.View`
   height: 12px;
   width: 12px;
   border-radius: 12px;
-  background: #dadada;
+  background: ${props => props.theme.colors.textOnSecundary};
 `;

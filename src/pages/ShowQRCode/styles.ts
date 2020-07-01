@@ -1,14 +1,14 @@
 import styled from 'styled-components/native';
 
 export const Title = styled.Text`
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 26px;
   text-align: center;
   font-family: 'Roboto-Light';
 `;
 
 export const Text = styled.Text`
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 18px;
   text-align: center;
   margin: 50px 70px;

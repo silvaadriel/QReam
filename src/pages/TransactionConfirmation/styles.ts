@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Title = styled.Text`
   margin: 28px;
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 40px;
   text-align: left;
   letter-spacing: -0.5px;
@@ -24,14 +24,14 @@ export const TransactionInformation = styled.View`
 `;
 
 export const TransactionInformationKey = styled.Text`
-  color: #bebebf;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 20px;
   letter-spacing: -0.5px;
   font-family: 'Roboto-Light';
 `;
 
 export const TransactionInformationValue = styled.Text`
-  color: #dadada;
+  color: ${props => props.theme.colors.textOnSecundary};
   font-size: 30px;
   letter-spacing: -0.5px;
   font-family: 'Roboto-Regular';

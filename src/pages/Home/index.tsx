@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from 'styled-components';
 
 import { ApplicationState } from '../../store';
 
@@ -31,6 +32,8 @@ const Home: React.FC = () => {
 
   const user = useSelector((state: ApplicationState) => state.user.data);
 
+  const theme = useContext(ThemeContext);
+
   const navigation = useNavigation();
 
   const userFirstName = useMemo(() => user?.name?.split(' ')[0], [
@@ -49,7 +52,11 @@ const Home: React.FC = () => {
               }}
             />
           ) : (
-            <Icon name="account-circle" color="#B8B8B9" size={52} />
+            <Icon
+              name="account-circle"
+              color={theme.colors.textOnSecundary}
+              size={52}
+            />
           )}
         </User>
       </Header>
@@ -67,7 +74,7 @@ const Home: React.FC = () => {
           <Icon
             onPress={() => setHideBalance(!hideBalance)}
             name={hideBalance ? 'visibility' : 'visibility-off'}
-            color="#2699DA"
+            color={theme.colors.textOnSecundary}
             size={28}
           />
         </BalanceAvailable>

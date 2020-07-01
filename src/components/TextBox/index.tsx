@@ -1,6 +1,8 @@
-import React, { useState, useCallback, forwardRef } from 'react';
+import React, { useState, useCallback, forwardRef, useContext } from 'react';
 import { TextInput as RNTextInput, TextInputProps } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { ThemeContext } from 'styled-components';
+import { transparentize } from 'polished';
 
 import { TextInputBox, TextInput } from './styles';
 
@@ -16,6 +18,8 @@ const TextBox: React.RefForwardingComponent<RNTextInput, TextBoxProps> = (
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
+  const theme = useContext(ThemeContext);
+
   const handleTextVisibility = useCallback(() => {
     setIsTextVisible(!isTextVisible);
   }, [isTextVisible]);
@@ -27,7 +31,7 @@ const TextBox: React.RefForwardingComponent<RNTextInput, TextBoxProps> = (
         autoCorrect={secureTextEntry}
         autoCapitalize={secureTextEntry ? 'none' : 'sentences'}
         secureTextEntry={isTextVisible}
-        placeholderTextColor="#DADADA50"
+        placeholderTextColor={transparentize(0.6, theme.colors.textOnSecundary)}
         onFocus={() => setIsFocused(true)}
         onEndEditing={event => {
           setIsFocused(false);
@@ -38,7 +42,11 @@ const TextBox: React.RefForwardingComponent<RNTextInput, TextBoxProps> = (
       {secureTextEntry ? (
         <Icon
           name={isTextVisible ? 'visibility' : 'visibility-off'}
-          color="#DADADA50"
+          color={
+            isFocused || isFilled
+              ? theme.colors.textOnSecundary
+              : transparentize(0.6, theme.colors.textOnSecundary)
+          }
           size={24}
           onPress={handleTextVisibility}
         />

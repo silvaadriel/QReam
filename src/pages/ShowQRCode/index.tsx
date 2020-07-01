@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from 'styled-components';
+import { transparentize } from 'polished';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -14,13 +16,15 @@ import { Title, Text, Footer, QRCodeContainer } from './styles';
 const ShowQRCode: React.FC = () => {
   const navigation = useNavigation();
 
+  const theme = useContext(ThemeContext);
+
   return (
     <ContainerFluid>
       <Header style={{ alignItems: 'flex-end' }}>
         <IconButton
           onPress={() => navigation.navigate('Home')}
           icon="close"
-          iconColor="#DADADA70"
+          iconColor={transparentize(0.5, theme.colors.textOnSecundary)}
           iconSize={48}
         />
       </Header>

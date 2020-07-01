@@ -5,8 +5,12 @@ import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
+import { ThemeProvider } from 'styled-components';
 
 import { navigationRef } from './rootNavigation';
+
+import light from './styles/themes/light';
+import dark from './styles/themes/dark';
 
 import store from './store';
 
@@ -21,7 +25,9 @@ const App: React.FC = () => {
     <Provider store={store}>
       <NavigationContainer ref={navigationRef}>
         <StatusBar barStyle="light-content" backgroundColor="#2b2a3f" />
-        <Routes />
+        <ThemeProvider theme={light}>
+          <Routes />
+        </ThemeProvider>
       </NavigationContainer>
     </Provider>
   );
