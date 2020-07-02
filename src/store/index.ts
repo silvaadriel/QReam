@@ -2,12 +2,14 @@ import { createStore, Store, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './rootReducer';
+import { AppStatusState } from './appStatus/types';
 import { AuthState } from './auth/types';
 import { SignUpState } from './signUp/types';
 import { UserState } from './user/types';
 import rootSaga from './rootSaga';
 
 export interface ApplicationState {
+  readonly appStatus: AppStatusState;
   readonly auth: AuthState;
   readonly signUp: SignUpState;
   readonly user: UserState;

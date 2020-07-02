@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Animated } from 'react-native';
+import { shade } from 'polished';
 
 export const User = styled.View`
   align-items: center;
@@ -39,12 +40,36 @@ export const ButtonText = styled.Text`
   font-family: 'Roboto-Regular';
 `;
 
-export const Preferences = styled(Animated.View)`
-  width: 100%;
-  height: 100%;
-  position: absolute;
+export const ModalContainer = styled.View`
+  height: 400px;
   border-top-width: 2px;
   border-top-color: ${props => props.theme.colors.primary};
   background: ${props => props.theme.colors.secundary};
-  z-index: 5;
+`;
+
+export const ModalHeader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  background: ${props => shade(0.05, props.theme.colors.secundary)};
+  padding: 20px;
+`;
+
+export const ModalTitle = styled.Text`
+  color: ${props => props.theme.colors.textOnSecundary};
+  font-size: 25px;
+  font-family: 'Roboto-Regular';
+`;
+
+export const ThemeSwitcherContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom-width: 1px;
+  border-bottom-color: ${props => shade(0.05, props.theme.colors.secundary)};
+`;
+
+export const ThemeSwitcherText = styled.Text`
+  color: ${props => props.theme.colors.textOnSecundary};
+  font-size: 20px;
+  font-family: 'Roboto-Regular';
 `;

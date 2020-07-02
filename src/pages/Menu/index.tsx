@@ -1,13 +1,16 @@
 import React, { useContext, useState, useCallback } from 'react';
-import { Animated, Dimensions } from 'react-native';
+import { Switch } from 'react-native';
+
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Modal from 'react-native-modal';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from 'styled-components';
 import { transparentize } from 'polished';
 
 import { ApplicationState } from '../../store';
 import { logoutRequest } from '../../store/auth/actions';
+import { changeAppTheme } from '../../store/appStatus/actions';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
@@ -20,15 +23,16 @@ import {
   ButtonText,
   User,
   UserName,
-  Preferences,
+  ModalContainer,
+  ModalHeader,
+  ModalTitle,
+  ThemeSwitcherContainer,
+  ThemeSwitcherText,
 } from './styles';
 
 const Menu: React.FC = () => {
   const user = useSelector((state: ApplicationState) => state.user.data);
-  // const [buttonGroupOpacity] = useState(new Animated.Value(1));
-  const [preferencesOffset] = useState(
-    new Animated.ValueXY({ x: 0, y: Dimensions.get('window').height }),
-  );
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -36,13 +40,9 @@ const Menu: React.FC = () => {
 
   const navigation = useNavigation();
 
-  const showPreferences = useCallback(() => {
-    Animated.spring(preferencesOffset.y, {
-      toValue: Dimensions.get('window').height / 3,
-      tension: 20,
-      useNativeDriver: false,
-    }).start();
-  }, [preferencesOffset]);
+  const toggleModal = useCallback(() => {
+    setIsModalVisible(previousIsModalVisible => !previousIsModalVisible);
+  }, []);
 
   return (
     <ContainerFluid>
@@ -73,7 +73,40 @@ const Menu: React.FC = () => {
         <UserName>{user.name}</UserName>
       </User>
 
-      <Preferences style={{ top: preferencesOffset.y }} />
+      <Modal
+        isVisible={isModalVisible}
+        swipeDirection={['down']}
+        onSwipeComplete={toggleModal}
+        onBackButtonPress={toggleModal}
+        onBackdropPress={toggleModal}
+        style={{
+          justifyContent: 'flex-end',
+          margin: 0,
+        }}
+      >
+        <ModalContainer>
+          <ModalHeader>
+            <ModalTitle>Preferências</ModalTitle>
+            <IconButton
+              onPress={toggleModal}
+              icon="keyboard-arrow-down"
+              iconColor={transparentize(0.5, theme.colors.textOnSecundary)}
+              iconSize={38}
+            />
+          </ModalHeader>
+          <ThemeSwitcherContainer>
+            <ThemeSwitcherText>Ativar tema escuro</ThemeSwitcherText>
+            <Switch
+              value={theme.name === 'dark'}
+              onValueChange={() =>
+                dispatch(
+                  changeAppTheme(theme.name === 'light' ? 'dark' : 'light'),
+                )
+              }
+            />
+          </ThemeSwitcherContainer>
+        </ModalContainer>
+      </Modal>
 
       <ButtonGroup>
         <Button>
@@ -84,7 +117,7 @@ const Menu: React.FC = () => {
           <ButtonText>Alterar informações</ButtonText>
         </Button>
 
-        <Button onPress={() => showPreferences()}>
+        <Button onPress={() => toggleModal()}>
           <ButtonText>Preferências</ButtonText>
         </Button>
 
