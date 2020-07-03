@@ -95,7 +95,9 @@ const Menu: React.FC = () => {
             />
           </ModalHeader>
           <ThemeSwitcherContainer>
-            <ThemeSwitcherText>Ativar tema escuro</ThemeSwitcherText>
+            <ThemeSwitcherText>
+              {theme.name === 'light' ? 'Ativar' : 'Desativar'} tema escuro
+            </ThemeSwitcherText>
             <Switch
               value={theme.name === 'dark'}
               onValueChange={() =>

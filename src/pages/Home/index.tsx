@@ -11,8 +11,10 @@ import Header from '../../components/Header';
 
 import TileButton from './TileButton';
 
-import payWithQRCodeIcon from '../../assets/payWithQRCodeIcon.png';
-import receiveWithQRCodeIcon from '../../assets/receiveWithQRCodeIcon.png';
+import payWithQRCodeIconLight from '../../assets/payWithQRCodeIconLight.png';
+import payWithQRCodeIconDark from '../../assets/payWithQRCodeIconDark.png';
+import receiveWithQRCodeIconLight from '../../assets/receiveWithQRCodeIconLight.png';
+import receiveWithQRCodeIconDark from '../../assets/receiveWithQRCodeIconDark.png';
 
 import {
   AvatarImage,
@@ -82,7 +84,11 @@ const Home: React.FC = () => {
 
       <TileButtonContainer>
         <TileButton
-          icon={payWithQRCodeIcon}
+          icon={
+            theme.name === 'dark'
+              ? payWithQRCodeIconDark
+              : payWithQRCodeIconLight
+          }
           onPress={() =>
             navigation.navigate('InformValue', {
               transactionType: 'pay',
@@ -93,7 +99,11 @@ const Home: React.FC = () => {
         </TileButton>
 
         <TileButton
-          icon={receiveWithQRCodeIcon}
+          icon={
+            theme.name === 'dark'
+              ? receiveWithQRCodeIconDark
+              : receiveWithQRCodeIconLight
+          }
           onPress={() =>
             navigation.navigate('InformValue', {
               transactionType: 'receive',

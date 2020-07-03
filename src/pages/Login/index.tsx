@@ -4,10 +4,12 @@ import React, {
   useCallback,
   useMemo,
   useEffect,
+  useContext,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Animated, TextInput, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from 'styled-components';
 
 import { ApplicationState } from '../../store';
 import { loginRequest } from '../../store/auth/actions';
@@ -17,6 +19,7 @@ import ActionButton from '../../components/ActionButton';
 import ContainerFluid from '../../components/ContainerFluid';
 
 import logoLight from '../../assets/logo-light.png';
+import logoDark from '../../assets/logo-dark.png';
 
 import {
   ContentContainer,
@@ -38,6 +41,8 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
+
+  const theme = useContext(ThemeContext);
 
   const passwordTextBoxRef = useRef<TextInput>(null);
 
@@ -97,13 +102,24 @@ const Login: React.FC = () => {
     [credential, password, loading],
   );
 
+  const logo = useMemo(() => {
+    switch (theme.name) {
+      case 'light':
+        return logoLight;
+      case 'dark':
+        return logoDark;
+      default:
+        return logoLight;
+    }
+  }, [theme.name]);
+
   return (
     <ContainerFluid>
       <ContentContainer>
         <LogoContainer>
           <Logo
             style={{ opacity, transform: [{ scale: logoScale }] }}
-            source={logoLight}
+            source={logo}
             resizeMode="contain"
           />
         </LogoContainer>
