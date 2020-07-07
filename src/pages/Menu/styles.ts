@@ -1,16 +1,9 @@
 import styled from 'styled-components/native';
-import { Animated } from 'react-native';
 import { shade } from 'polished';
 
 export const User = styled.View`
   align-items: center;
   justify-content: center;
-`;
-
-export const AvatarImage = styled.Image`
-  height: 95px;
-  width: 95px;
-  border-radius: 95px;
 `;
 
 export const UserName = styled.Text`

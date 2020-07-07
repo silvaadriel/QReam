@@ -12,24 +12,25 @@ export const InputValueContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0 80px;
+  margin: 0 60px;
 `;
 
 export const InputValueCurrency = styled.Text`
+  margin-right: 10px;
   color: ${props => props.theme.colors.textOnSecundary};
   font-size: 16px;
   font-family: 'Roboto-Light';
 `;
 
 export const InputValue = styled.TextInput`
-  flex: 1;
   color: ${props => props.theme.colors.textOnSecundary};
-  font-size: 64px;
+  font-size: 54px;
   text-align: center;
   letter-spacing: -0.5px;
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.theme.colors.primary};
   font-family: 'Roboto-Regular';
+  min-width: 200px;
 `;
 
 export const Footer = styled.View`

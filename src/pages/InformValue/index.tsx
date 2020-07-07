@@ -63,6 +63,7 @@ const InformValue: React.FC = () => {
 
         <InputValue
           value={value}
+          maxLength={10}
           onChangeText={handleChangeText}
           keyboardType="numeric"
           autoFocus

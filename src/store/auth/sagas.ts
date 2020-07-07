@@ -18,6 +18,8 @@ export function* login({ payload }: any): any {
       password,
     });
 
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+
     yield put(loginSuccess(token, user));
     navigate('App');
   } catch {

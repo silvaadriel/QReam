@@ -11,18 +11,16 @@ export function* updateUserAvatar({ payload }: any): any {
     const { avatar } = payload;
 
     const { data: user }: AxiosResponse<User> = yield call(
-      api.post,
+      api.patch,
       'users/avatar',
-      {
-        avatar,
-      },
+      avatar,
     );
 
-    Alert.alert('Sucesso!', 'Perfil atualizado com sucesso!');
+    Alert.alert('Sucesso!', 'Avatar atualizado com sucesso!');
 
     yield put(updateAvatarSuccess(user));
   } catch {
-    Alert.alert('Falha na atualização', 'Erro ao atualizar Perfil');
+    Alert.alert('Falha na atualização', 'Erro ao atualizar avatar.');
     yield put(updateAvatarFailure());
   }
 }

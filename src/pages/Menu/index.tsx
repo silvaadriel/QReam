@@ -1,23 +1,24 @@
 import React, { useContext, useState, useCallback } from 'react';
-import { Switch } from 'react-native';
+import { Alert, Switch } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Modal from 'react-native-modal';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from 'styled-components';
 import { transparentize } from 'polished';
+import ImagePicker from 'react-native-image-picker';
 
 import { ApplicationState } from '../../store';
 import { logoutRequest } from '../../store/auth/actions';
+import { updateAvatarRequest } from '../../store/user/actions';
 import { changeAppTheme } from '../../store/appStatus/actions';
 
 import ContainerFluid from '../../components/ContainerFluid';
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
+import Avatar from '../../components/Avatar';
 
 import {
-  AvatarImage,
   Button,
   ButtonGroup,
   ButtonText,
@@ -44,6 +45,37 @@ const Menu: React.FC = () => {
     setIsModalVisible(previousIsModalVisible => !previousIsModalVisible);
   }, []);
 
+  const handleUpdateAvatar = useCallback(() => {
+    ImagePicker.showImagePicker(
+      {
+        title: 'Selecione um avatar',
+        cancelButtonTitle: 'Cancelar',
+        takePhotoButtonTitle: 'Usar câmera',
+        chooseFromLibraryButtonTitle: 'Escolher da galeria',
+      },
+      response => {
+        if (response.didCancel) {
+          return;
+        }
+
+        if (response.error) {
+          Alert.alert('Erro ao atualizar seu avatar.');
+          return;
+        }
+
+        const data = new FormData();
+
+        data.append('avatar', {
+          type: 'image/jpeg',
+          name: `${user.id}.jpg`,
+          uri: response.uri,
+        });
+
+        dispatch(updateAvatarRequest(data));
+      },
+    );
+  }, [dispatch, user.id]);
+
   return (
     <ContainerFluid>
       <Header>
@@ -56,19 +88,7 @@ const Menu: React.FC = () => {
       </Header>
 
       <User>
-        {user.avatar ? (
-          <AvatarImage
-            source={{
-              uri: `https://qream-api.herokuapp.com/files/${user.avatar}`,
-            }}
-          />
-        ) : (
-          <Icon
-            name="account-circle"
-            color={theme.colors.textOnSecundary}
-            size={95}
-          />
-        )}
+        <Avatar avatarUri={user.avatar_url} onPress={handleUpdateAvatar} />
 
         <UserName>{user.name}</UserName>
       </User>

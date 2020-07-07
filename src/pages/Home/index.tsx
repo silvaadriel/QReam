@@ -50,7 +50,7 @@ const Home: React.FC = () => {
           {user.avatar ? (
             <AvatarImage
               source={{
-                uri: `https://qream-api.herokuapp.com/files/${user.avatar}`,
+                uri: user.avatar_url,
               }}
             />
           ) : (

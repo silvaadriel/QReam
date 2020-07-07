@@ -9,6 +9,7 @@ export interface User {
   name: string;
   credential: string;
   avatar: string;
+  avatar_url: string;
   password: string;
 }
 
